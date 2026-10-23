@@ -1,0 +1,114 @@
+{
+  "name": "redactly",
+  "version": "0.1.0",
+  "description": "Redact secrets and personal data (tokens, cards, IBANs, emails, API keys) from logs by detecting the values themselves, not just known paths. Zero dependencies, any runtime.",
+  "keywords": [
+    "redact",
+    "redaction",
+    "mask",
+    "pii",
+    "gdpr",
+    "pci",
+    "secrets",
+    "logging",
+    "pino",
+    "winston",
+    "sanitize",
+    "security"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./pino": {
+      "import": {
+        "types": "./dist/pino.d.ts",
+        "default": "./dist/pino.js"
+      },
+      "require": {
+        "types": "./dist/pino.d.cts",
+        "default": "./dist/pino.cjs"
+      }
+    },
+    "./winston": {
+      "import": {
+        "types": "./dist/winston.d.ts",
+        "default": "./dist/winston.js"
+      },
+      "require": {
+        "types": "./dist/winston.d.cts",
+        "default": "./dist/winston.cjs"
+      }
+    },
+    "./console": {
+      "import": {
+        "types": "./dist/console.d.ts",
+        "default": "./dist/console.js"
+      },
+      "require": {
+        "types": "./dist/console.d.cts",
+        "default": "./dist/console.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "bench": "vitest bench --run --reporter=verbose",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "size": "size-limit",
+    "check:exports": "publint && attw --pack . --profile node16",
+    "smoke": "node scripts/smoke.mjs && node scripts/smoke.cjs",
+    "changeset": "changeset",
+    "release": "npm run build && changeset publish",
+    "prepublishOnly": "npm run build"
+  },
+  "size-limit": [
+    {
+      "name": "core (ESM)",
+      "path": "dist/index.js",
+      "limit": "4 kB"
+    }
+  ],
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@biomejs/biome": "^2.6.2",
+    "@changesets/cli": "^3.0.3",
+    "@size-limit/preset-small-lib": "^14.3.0",
+    "@types/fast-redact": "^3.0.4",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "fast-redact": "^3.5.0",
+    "pino": "^10.4.0",
+    "publint": "^0.3.25",
+    "size-limit": "^14.3.0",
+    "tsup": "^9.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5",
+    "winston": "^3.19.0"
+  }
+}
