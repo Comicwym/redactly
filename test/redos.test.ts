@@ -28,14 +28,26 @@ const hostile: Record<string, string> = {
 /** Generous for slow CI runners; a backtracking blow-up takes seconds or minutes, not milliseconds. */
 const BUDGET_MS = 50;
 
+/**
+ * Best of 3 runs: a GC pause or a busy shared runner can stall one run, while catastrophic
+ * backtracking is slow every time.
+ */
+function fastestRunMs(run: () => void): number {
+  let best = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < 3; i++) {
+    const start = performance.now();
+    run();
+    best = Math.min(best, performance.now() - start);
+  }
+  return best;
+}
+
 describe('ReDoS safety', () => {
   for (const detector of presets.all) {
     it(`${detector.name} stays linear on hostile input`, () => {
       const r = createRedactor({ presets: [], detectors: [detector] });
       for (const [shape, input] of Object.entries(hostile)) {
-        const start = performance.now();
-        r.string(input);
-        const elapsed = performance.now() - start;
+        const elapsed = fastestRunMs(() => r.string(input));
         expect(elapsed, `${detector.name} on ${shape} took ${elapsed.toFixed(1)} ms`).toBeLessThan(
           BUDGET_MS,
         );
