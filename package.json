@@ -1,6 +1,6 @@
 {
   "name": "redactly",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Redact secrets and personal data (tokens, cards, IBANs, emails, API keys) from logs by detecting the values themselves, not just known paths. Zero dependencies, any runtime.",
   "keywords": [
     "redact",
