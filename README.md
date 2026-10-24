@@ -1,5 +1,9 @@
 # redactly
 
+[![npm](https://img.shields.io/npm/v/redactly)](https://www.npmjs.com/package/redactly)
+[![CI](https://github.com/Comicwym/redactly/actions/workflows/ci.yml/badge.svg)](https://github.com/Comicwym/redactly/actions/workflows/ci.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Comicwym/redactly/badge)](https://scorecard.dev/viewer/?uri=github.com/Comicwym/redactly)
+
 **Keep secrets and personal data out of your logs.** redactly finds tokens, card numbers, IBANs, emails, API keys and passwords by looking at the _values_ — not just at a list of known paths — and replaces them before they are written anywhere.
 
 ```ts
